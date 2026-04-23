@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 420" role="img" aria-labelledby="title desc">
+<title id="title">Olfactory ultrasound concept mark</title>
+<desc id="desc">Text flows into an AI stack, then ultrasound aims at the olfactory bulb with a lightbulb cue.</desc>
+  <defs>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5be0d5" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#1f8de6" stop-opacity="0.85" />
+    </linearGradient>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="6" refY="6" orient="auto">
+      <path d="M0 0 L12 6 L0 12 z" fill="#5be0d5" />
+    </marker>
+    <style>
+      .outline { fill: none; stroke: #1f8de6; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+      .accent { stroke: #5be0d5; }
+      .fill { fill: #1f8de6; stroke: none; }
+      .label { font-family: 'Space Grotesk', 'Inter', 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: 600; fill: #e8f5ff; }
+      .small { font-size: 18px; font-weight: 500; fill: #c9e9ff; }
+    </style>
+  </defs>
+
+  <!-- Text sheet -->
+  <text class="label" x="70" y="110">text</text>
+  <rect class="outline" x="60" y="132" width="130" height="176" rx="16" />
+  <path class="outline accent" d="M88 170c24-12 46 6 70-4M88 204c24-12 46 6 70-4M88 236c24-12 46 6 70-4M88 268c24-12 46 6 70-4" />
+
+  <!-- AI stack -->
+  <text class="label" x="268" y="90">“AI”</text>
+  <g>
+    <rect class="outline" x="236" y="140" width="154" height="38" rx="12" />
+    <rect class="outline" x="236" y="184" width="154" height="38" rx="12" />
+    <rect class="outline" x="236" y="228" width="154" height="38" rx="12" />
+    <rect class="outline" x="236" y="272" width="154" height="38" rx="12" />
+    <path class="outline accent" d="M248 148l20 16m12-16l20 16m12-16l20 16m12-16l20 16" />
+    <g fill="url(#glow)">
+      <circle cx="248" cy="132" r="8" />
+      <circle cx="270" cy="132" r="8" />
+      <circle cx="292" cy="132" r="8" />
+      <circle cx="314" cy="132" r="8" />
+      <circle cx="336" cy="132" r="8" />
+      <circle cx="358" cy="132" r="8" />
+      <circle cx="380" cy="132" r="8" />
+      <circle cx="402" cy="132" r="8" />
+    </g>
+  </g>
+
+  <!-- Flow arrows -->
+  <path class="outline accent" marker-end="url(#arrow)" d="M116 310c48 40 116 28 140-8" />
+  <path class="outline accent" marker-end="url(#arrow)" d="M310 160c64-18 116-6 162 22" />
+  <text class="small" x="360" y="134">embedding</text>
+
+  <!-- Ultrasound puck -->
+  <text class="label" x="456" y="96">ultrasound</text>
+  <path class="outline" d="M430 186c-6-8-4-20 4-26l30-22c8-6 20-4 26 4l34 46c4 6 2 14-4 18l-42 26c-6 4-14 2-18-4z" />
+  <path class="outline accent" d="M520 198c16 6 22 18 26 28" />
+  <path class="outline accent" d="M502 212c18 10 26 22 30 36" />
+
+  <!-- Head profile -->
+  <path class="outline" d="M548 116c64-36 176 6 186 106c8 74-40 152-122 152c-46 0-78-42-68-86c4-16 10-32 20-46c-26-12-42-34-40-62c2-26 18-48 42-58c-2-18 8-44 28-66z" />
+  <path class="outline" d="M586 180c18 22 22 42 8 62c18 8 24 24 12 44" />
+  <path class="outline" d="M606 308c-12 22-8 46 6 66" />
+  <path class="outline" d="M624 182c24 8 34 24 36 44" />
+
+  <!-- Brain + idea -->
+  <path class="outline accent" d="M604 144c62-12 108 30 118 72c10 40-6 86-38 116" />
+  <circle class="outline" cx="644" cy="204" r="40" />
+  <path class="outline" d="M642 172c16 0 28 14 28 30c0 10-4 18-12 24l-6 6h-20l-6-6c-8-6-12-14-12-24c0-16 12-30 28-30z" />
+  <path class="fill" d="M632 240h24v12c0 4-4 8-8 8h-8c-4 0-8-4-8-8z" />
+  <path class="outline accent" d="M644 256v12" />
+  <path class="outline accent" d="M624 198l-12-6" />
+  <path class="outline accent" d="M660 198l12-6" />
+  <path class="outline accent" d="M640 168l-2-12" />
+
+  <!-- Olfactory bulb cue -->
+  <text class="label" x="412" y="336">olfactory bulb</text>
+  <path class="outline accent" marker-end="url(#arrow)" d="M476 252c-6 20-2 38 12 50c20 18 52 18 88-6" />
+  <path class="outline accent" d="M576 248c-6-16-2-32 10-44c12-12 28-16 46-10" />
+</svg>

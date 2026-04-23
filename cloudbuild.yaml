@@ -1,0 +1,12 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - gcr.io/$PROJECT_ID/olfactory-web:latest
+      - --build-arg
+      - VITE_SEOGEO_BRIDGE_URL=$_VITE_SEOGEO_BRIDGE_URL
+      - .
+images:
+  - gcr.io/$PROJECT_ID/olfactory-web:latest
+
