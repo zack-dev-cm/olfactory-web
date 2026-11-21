@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 import { startBridgeAnalytics } from './bridgeTracking'
+import PerceptionFields from './PerceptionFields'
 
 type Preset = {
   id: string
@@ -131,7 +132,7 @@ type AudioRefs = {
   nextPulseTime: number
 }
 
-const useAudioRefs = (): AudioRefs => ({
+const createAudioRefs = (): AudioRefs => ({
   ctx: null,
   carrierOsc: null,
   gain: null,
@@ -161,7 +162,7 @@ function App() {
   const [notes, setNotes] = useState<string>('')
   const [feedbackLog, setFeedbackLog] = useState<FeedbackEntry[]>([])
 
-  const audioRefs = useRef<AudioRefs>(useAudioRefs()).current
+  const audioState = useRef<AudioRefs>(createAudioRefs())
 
   useEffect(() => {
     const analytics = startBridgeAnalytics()
@@ -178,13 +179,6 @@ function App() {
   }, [selectedPreset])
 
   useEffect(() => {
-    return () => {
-      stopTone()
-      audioRefs.ctx?.close()
-    }
-  }, [])
-
-  useEffect(() => {
     setRemaining(sessionSeconds)
   }, [sessionSeconds])
 
@@ -194,6 +188,7 @@ function App() {
   }
 
   const ensureContext = async () => {
+    const audioRefs = audioState.current
     if (!audioRefs.ctx) {
       audioRefs.ctx = new AudioContext()
     }
@@ -203,7 +198,8 @@ function App() {
     return audioRefs.ctx
   }
 
-  const stopTone = () => {
+  const stopTone = useCallback(() => {
+    const audioRefs = audioState.current
     if (audioRefs.scheduler) {
       window.clearInterval(audioRefs.scheduler)
       audioRefs.scheduler = null
@@ -218,7 +214,7 @@ function App() {
     }
     try {
       audioRefs.carrierOsc?.stop()
-    } catch (error) {
+    } catch {
       // Oscillator might already be stopped; ignore.
     }
     audioRefs.carrierOsc?.disconnect()
@@ -227,9 +223,18 @@ function App() {
     audioRefs.gain = null
     audioRefs.nextPulseTime = 0
     setStatus('Idle')
-  }
+  }, [])
+
+  useEffect(() => {
+    const audioRefs = audioState.current
+    return () => {
+      stopTone()
+      audioRefs.ctx?.close()
+    }
+  }, [stopTone])
 
   const schedulePulses = (gainNode: GainNode) => {
+    const audioRefs = audioState.current
     if (!audioRefs.ctx) return
     const lookAheadSeconds = 0.5
     const scheduleStepMs = 50
@@ -251,6 +256,7 @@ function App() {
   }
 
   const startTone = async () => {
+    const audioRefs = audioState.current
     const ctx = await ensureContext()
     stopTone()
     const carrier = ctx.createOscillator()
@@ -325,6 +331,7 @@ function App() {
           <p className="ref-link">
             Reference writeup: <a href={referenceUrl}>writetobrain.com/olfactory</a>
           </p>
+          <p className="ref-link"><a href="./device.html">Codex Device</a></p>
           <div className="tags">
             <span className="chip">300 kHz → emulated 18–20 kHz</span>
             <span className="chip">1200 Hz pulse train</span>
@@ -612,39 +619,12 @@ function App() {
           </div>
           <div className="feedback-grid">
             <div className="controls">
-              <label>
-                Scent intensity ({experienceScore}/10)
-                <input
-                  type="range"
-                  min={0}
-                  max={10}
-                  step={1}
-                  value={experienceScore}
-                  onChange={(e) => setExperienceScore(Number(e.target.value))}
-                />
-              </label>
-              <label>
-                Clarity / distinctness ({clarityScore}/10)
-                <input
-                  type="range"
-                  min={0}
-                  max={10}
-                  step={1}
-                  value={clarityScore}
-                  onChange={(e) => setClarityScore(Number(e.target.value))}
-                />
-              </label>
-              <label>
-                Comfort ({comfortScore}/10)
-                <input
-                  type="range"
-                  min={0}
-                  max={10}
-                  step={1}
-                  value={comfortScore}
-                  onChange={(e) => setComfortScore(Number(e.target.value))}
-                />
-              </label>
+              <PerceptionFields value={{ intensity: experienceScore, clarity: clarityScore, comfort: comfortScore }}
+                onChange={({ intensity: score, clarity, comfort }) => {
+                  setExperienceScore(score)
+                  setClarityScore(clarity)
+                  setComfortScore(comfort)
+                }} />
               <label>
                 Notes (optional)
                 <textarea

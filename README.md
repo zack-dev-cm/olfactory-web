@@ -1,5 +1,7 @@
 # Olfactory Ultrasound Pilot (web)
 
+[Codex Device](device/README.md) is a separate local console for tracked Codex runs, a USB scent dock, and optional recording-only EEG. It runs in simulation with `npm run build` and `npm run device`.
+
 Web-based placement coach and near-ultrasonic tone generator inspired by the olfactory tFUS experiment (300 kHz carrier, 39 mm focal depth, 50–55° steering, 5-cycle pulses @ 1200 Hz). It lets you position a phone on the forehead and play emulated pulse trains for the four reported sensations: fresh air, garbage/ferment, ozone/ionizer, and campfire/burnt wood.
 
 > Hardware note: consumer speakers cap near 20 kHz, so this app emulates the sequencing logic for coaching and for driving external transducers. It is not a medical device.
